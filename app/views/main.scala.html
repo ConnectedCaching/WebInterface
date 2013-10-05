@@ -1,0 +1,18 @@
+@(title: String, scripts: Html = Html(""), styles: Html = Html(""))(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>@title</title>
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+
+		<link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
+		@styles
+
+		@scripts
+	</head>
+	<body>
+		@content
+	</body>
+</html>
