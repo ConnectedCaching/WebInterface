@@ -1,6 +1,7 @@
 Ext.define('Archer.view.Viewport', {
 
 	extend: 'Ext.container.Container',
+	alias: 'widget.viewport',
 
 	requires: [
 		'Archer.view.Viewer',

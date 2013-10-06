@@ -18,11 +18,15 @@ Ext.application({
 	autoCreateViewport: false,
 
 	launch: function() {
-		Ext.create('Archer.view.Viewport', {
-			renderTo: Ext.Element.get('app'),
+		this.viewport = Ext.create('Archer.view.Viewport', {
 			width: '100%',
-			height: '100%'
+			height: '100%',
+			renderTo: Ext.Element.get('app')
 		});
 	}
 
+});
+
+Ext.EventManager.onWindowResize(function(width, height){
+	Archer.getApplication().viewport.doComponentLayout();
 });
