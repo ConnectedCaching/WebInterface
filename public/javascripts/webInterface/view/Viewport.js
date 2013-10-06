@@ -1,6 +1,6 @@
 Ext.define('Archer.view.Viewport', {
 
-	extend: 'Ext.container.Viewport',
+	extend: 'Ext.container.Container',
 
 	requires: [
 		'Archer.view.Viewer',

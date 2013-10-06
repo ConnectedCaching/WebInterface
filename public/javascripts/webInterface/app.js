@@ -15,6 +15,14 @@ Ext.application({
 	//	'Feeds'
 	//],
 
-	autoCreateViewport: true
+	autoCreateViewport: false,
+
+	launch: function() {
+		Ext.create('Archer.view.Viewport', {
+			renderTo: Ext.Element.get('app'),
+			width: '100%',
+			height: '100%'
+		});
+	}
 
 });

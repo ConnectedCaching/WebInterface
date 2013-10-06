@@ -17,7 +17,7 @@ Ext.define('Archer.view.Viewer', {
 		}, {
 			xtype: 'button',
 			text: 'Test Button',
-			margins: '0 5 0 5'
+			margins: '3 5 0 5'
 		}]
 	},*/
 
