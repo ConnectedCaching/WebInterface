@@ -1,7 +1,7 @@
-Ext.define('Archer.view.list.Show', {
+Ext.define('Archer.view.library.Show', {
 
 	extend: 'Ext.panel.Panel',
-	alias: 'widget.listshow',
+	alias: 'widget.libraryshow',
 
 	requires: [
 		'Archer.view.geocache.Grid',

@@ -1,16 +1,18 @@
-Ext.define('Archer.view.list.List', {
+Ext.define('Archer.view.library.List', {
 
 	extend: 'Ext.panel.Panel',
-	alias: 'widget.list',
+	alias: 'widget.library',
 
 	requires: ['Ext.toolbar.Toolbar'],
 
-	title: 'Lists',
+	title: 'My Library',
 	collapsible: true,
 	animCollapse: false,
-	margins: '5 0 5 5',
+	floatable: false,
+	margins: '8 0 8 8',
 	layout: 'fit',
 	split: true,
+	border: false,
 
 	initComponent: function() {
 
@@ -18,11 +20,10 @@ Ext.define('Archer.view.list.List', {
 			items: [{
 				xtype: 'dataview',
 				trackOver: true,
-				store: this.store,
 				cls: 'feed-list',
-				itemSelector: '.feed-list-item',
-				overItemCls: 'feed-list-item-hover',
-				tpl: '<tpl for="."><div class="feed-list-item">{name}</div></tpl>',
+				itemSelector: '.library-list-item',
+				overItemCls: 'library-list-item-hover',
+				tpl: '<tpl for="."><div class="library-list-item">{name}</div></tpl>',
 				listeners: {
 					selectionchange: this.onSelectionChange,
 					scope: this
@@ -32,19 +33,15 @@ Ext.define('Archer.view.list.List', {
 			dockedItems: [{
 				xtype: 'toolbar',
 				items: [{
-					iconCls: 'feed-add',
-					text: 'Add Feed',
+					iconCls: 'library-add',
+					text: 'Add Collection',
 					action: 'add'
-				}, {
-					iconCls: 'feed-remove',
-					text: 'Remove Feed',
-					disabled: true,
-					action: 'remove'
 				}]
 			}]
 		});
 		this.callParent(arguments);
-
+		// Workaround for bug that ignores previous definition
+		this.animCollapse = false;
 	},
 
 	onSelectionChange: function(selmodel, selection) {

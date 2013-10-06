@@ -7,7 +7,7 @@ Ext.define('Archer.view.geocache.Preview', {
 
 	cls: 'preview',
 	autoScroll: true,
-	border: true,
+	border: false,
 
 	initComponent: function() {
 		Ext.apply(this, {

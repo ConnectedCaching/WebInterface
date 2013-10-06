@@ -4,7 +4,7 @@ Ext.define('Archer.view.Viewport', {
 
 	requires: [
 		'Archer.view.Viewer',
-		'Archer.view.list.List',
+		'Archer.view.library.List',
 		'Ext.layout.container.Border'
 	],
 
@@ -16,7 +16,7 @@ Ext.define('Archer.view.Viewport', {
 	}, {
 		region: 'west',
 		width: 225,
-		xtype: 'list'
+		xtype: 'library'
 	}]
 
 });

@@ -8,7 +8,7 @@ Ext.define('Archer.view.geocache.Grid', {
 
 	requires: ['Ext.ux.PreviewPlugin', 'Ext.toolbar.Toolbar'],
 
-	border: true,
+	border: false,
 	split: true,
 
 	initComponent: function() {
