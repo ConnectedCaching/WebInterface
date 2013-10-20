@@ -1,7 +1,5 @@
-@(message: String)
+@(user: Option[securesocial.core.Identity])(implicit request: RequestHeader)
 
-@main("Welcome to Play") {
-
-    @play20.welcome(message)
+@main("title", user) {
 
 }

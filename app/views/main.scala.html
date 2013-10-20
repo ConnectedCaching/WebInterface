@@ -1,4 +1,6 @@
-@(title: String, scripts: Html = Html(""), styles: Html = Html(""))(content: Html)
+@(title: String, user: Option[securesocial.core.Identity], scripts: Html = Html(""), styles: Html = Html(""))(content: Html)(implicit request: RequestHeader)
+
+@import securesocial.core.providers.utils.RoutesHelper
 
 <!DOCTYPE html>
 
@@ -13,6 +15,45 @@
 		@scripts
 	</head>
 	<body>
+		<div class="navbar navbar-inverse navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Connected Caching</a>
+				</div>
+				<div class="navbar-right">
+					<ul class="nav navbar-nav">
+						<li class="@("active".when(request.uri == routes.Application.index.toString()))"><a href="#">Home</a></li>
+						<li><a href="#about">About</a></li>
+						<li><a href="#contact">Download</a></li>
+						<li class="@("active".when(request.uri == routes.Application.webInterface.toString()))"><a href="@routes.Application.webInterface">Web UI</a></li>
+						<li><a href="#">Support</a></li>
+						@if(user.isDefined) {
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li class="dropdown-header">Nav header</li>
+								<li><a href="#">Separated link</a></li>
+								<li><a href="#">One more separated link</a></li>
+								<li class="divider"></li>
+								<li><a href="@RoutesHelper.logout">Sign Out</a></li>
+							</ul>
+						</li>
+						} else {
+						<li><a href="@RoutesHelper.login">Sign In</a></li>
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+
 		@content
+
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="@routes.WebJarAssets.at(WebJarAssets.locate("js/bootstrap.min.js"))"></script>
+
 	</body>
 </html>
