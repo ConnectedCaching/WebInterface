@@ -22,10 +22,10 @@
 				</div>
 				<div class="navbar-right">
 					<ul class="nav navbar-nav">
-						<li class="@("active".when(request.uri == routes.Application.index.toString()))"><a href="#">Home</a></li>
+						<li class="@("active".when(request.uri == routes.Application.index.toString))"><a href="@routes.Application.index">Home</a></li>
 						<li><a href="#about">About</a></li>
 						<li><a href="#contact">Download</a></li>
-						<li class="@("active".when(request.uri == routes.Application.webInterface.toString()))"><a href="@routes.Application.webInterface">Web UI</a></li>
+						<li class="@("active".when(request.uri == routes.Application.webInterface.toString))"><a href="@routes.Application.webInterface">Web UI</a></li>
 						<li><a href="#">Support</a></li>
 						@if(user.isDefined) {
 						<li class="dropdown">
@@ -43,7 +43,7 @@
 							</ul>
 						</li>
 						} else {
-						<li><a href="@RoutesHelper.login">Sign In</a></li>
+						<li class="@("active".when(request.uri == RoutesHelper.login.toString))"><a href="@RoutesHelper.login">Sign In</a></li>
 						}
 					</ul>
 				</div>
