@@ -13,16 +13,15 @@ object ApplicationBuild extends Build {
 		"org.webjars" % "webjars-play_2.10" % "2.2.0",
 		"org.webjars" % "bootstrap" % "3.0.0",
 		"org.webjars" % "extjs" % "4.2.1.883",
-		// change to official release when available
-		"com.micronautics" % "securesocial" % "2.2.0"
+		"com.feth" %%  "play-authenticate" % "0.5.0-SNAPSHOT"
 	)
 
 	val main = play.Project(appName, appVersion, appDependencies).settings(
 
-		resolvers += Resolver.url(
-			"sbt-plugin-snapshots",
-			new URL("http://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/")
-		)(Resolver.ivyStylePatterns)
+		resolvers += Resolver.url("play-easymail (release)", url("http://joscha.github.com/play-easymail/repo/releases/"))(Resolver.ivyStylePatterns),
+		resolvers += Resolver.url("play-easymail (snapshot)", url("http://joscha.github.com/play-easymail/repo/snapshots/"))(Resolver.ivyStylePatterns),
+		resolvers += Resolver.url("play-authenticate (release)", url("http://joscha.github.com/play-authenticate/repo/releases/"))(Resolver.ivyStylePatterns),
+		resolvers += Resolver.url("play-authenticate (snapshot)", url("http://joscha.github.com/play-authenticate/repo/snapshots/"))(Resolver.ivyStylePatterns)
 
 	)
 

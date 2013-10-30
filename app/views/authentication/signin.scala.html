@@ -1,46 +1,54 @@
-@(loginForm: Form[(String,String)], errorMsg: Option[String] = None)(implicit request: RequestHeader)
+@()(implicit request: RequestHeader)
 
 @import views.html.helper._
-@import securesocial.core.Registry
-@import securesocial.core.AuthenticationMethod._
 
-@main("title", None) {
+@styles = {
+	<link rel='stylesheet' href='@routes.Assets.at("stylesheets/signin.css")'>
+}
+
+@main("title", None, styles = styles) {
 
 	<div class="container">
 
-	@errorMsg.map { msg =>
-		<div class="alert alert-error">
-			@Messages(msg)
-		</div>
-	}
+		<div id="box_login">
+			<div class="box_wrapper">
+				<div class="box">
+					<div>
+						<div class="head">
+							<h4>Log in to your account</h4>
+						</div>
 
-	@request.flash.get("success").map { msg =>
-		<div class="alert alert-info">
-			@msg
-		</div>
-	}
+						@request.flash.get("success").map { msg =>
+							<div class="alert alert-info">
+								@msg
+							</div>
+						}
 
-	@request.flash.get("error").map { msg =>
-		<div class="alert alert-error">
-			@msg
-		</div>
-	}
+						@request.flash.get("error").map { msg =>
+							<div class="alert alert-danger">
+								@msg
+							</div>
+						}
 
-	@defining(Registry.providers.all.values) { externalProviders =>
+						<div class="social">
+							@forProviders() { p =>
+								<a href="@p.getUrl()">@p.getKey()</a>
+							}
 
-		@if(externalProviders.size > 0) {
-			<div class="clearfix">
-				<p>@Messages("securesocial.login.instructions")</p>
-				<p>
-				@for(p <- externalProviders) {
-					@provider(p.ssId)
-				}
-				</p>
+							<a class="face_login" href="#">
+								<span class="face_icon">
+									<img src="@routes.Assets.at("images/i_face.png")" alt="fb" alt=""/>
+								</span>
+								<span class="text">Sign in with Facebook</span>
+							</a>
+							<div class="division">
+								<hr>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		}
-
-	}
-
+		</div>
 	</div>
 
 }

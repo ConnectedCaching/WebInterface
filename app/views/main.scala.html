@@ -1,6 +1,6 @@
-@(title: String, user: Option[securesocial.core.Identity], scripts: Html = Html(""), styles: Html = Html(""))(content: Html)(implicit request: RequestHeader)
+@(title: String, user: Option[models.User], scripts: Html = Html(""), styles: Html = Html(""))(content: Html)(implicit request: RequestHeader)
 
-@import securesocial.core.providers.utils.RoutesHelper
+@import views.html.authentication._
 
 <!DOCTYPE html>
 
@@ -10,23 +10,25 @@
 		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 
 		<link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
+		<link rel='stylesheet' href='@routes.Assets.at("stylesheets/theme.css")'>
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 		@styles
 
 		@scripts
 	</head>
 	<body>
-		<div class="navbar navbar-inverse navbar-static-top">
+		<div id="footerwrap">
+
+		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Connected Caching</a>
+					<a class="navbar-brand" href="@routes.Application.index">Connected Caching</a>
 				</div>
 				<div class="navbar-right">
 					<ul class="nav navbar-nav">
-						<li class="@("active".when(request.uri == routes.Application.index.toString))"><a href="@routes.Application.index">Home</a></li>
-						<li><a href="#about">About</a></li>
-						<li><a href="#contact">Download</a></li>
-						<li class="@("active".when(request.uri == routes.Application.webInterface.toString))"><a href="@routes.Application.webInterface">Web UI</a></li>
-						<li><a href="#">Support</a></li>
+						<li><a href="#">Features</a></li>
+						<li><a href="#">Pricing</a></li>
+						<li><a href="#">Download</a></li>
 						@if(user.isDefined) {
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
@@ -39,11 +41,11 @@
 								<li><a href="#">Separated link</a></li>
 								<li><a href="#">One more separated link</a></li>
 								<li class="divider"></li>
-								<li><a href="@RoutesHelper.logout">Sign Out</a></li>
+								<li><a href="@com.feth.play.module.pa.controllers.routes.Authenticate.logout">Sign Out</a></li>
 							</ul>
 						</li>
 						} else {
-						<li class="@("active".when(request.uri == RoutesHelper.login.toString))"><a href="@RoutesHelper.login">Sign In</a></li>
+						<li><a href="@routes.Application.signin" class="btn-header">Sign In</a></li>
 						}
 					</ul>
 				</div>
@@ -52,8 +54,69 @@
 
 		@content
 
+		</div>
+
+		<div id="footer">
+		<section id="footer-extra">
+
+			<div class="container">
+
+				<div class="row">
+
+					<div class="col-md-3">
+						<h4>Quick Links</h4>
+						<ul class="mark-list small">
+							<li><a href="#">Features</a></li>
+							<li><a href="#">Plans & Pricing</a></li>
+							<li><a href="#">Faq</a></li>
+							<li><a href="#">About</a></li>
+							<li><a href="#">Contact</a></li>
+						</ul>
+					</div>
+
+					<div class="col-md-3">
+						<h4>Recent News</h4>
+					</div>
+
+					<div class="col-md-3">
+						<h4>Blog Posts</h4>
+					</div>
+
+					<div class="col-md-3">
+						<h4>We're Social</h4>
+						<ul class="mark-list small">
+							<li>
+								<span class="mark"><i class="icon-facebook-sign"></i></span>
+								<a href="#">Facebook</a>
+							</li>
+							<li>
+								<span class="mark"><i class="icon-twitter"></i></span>
+								<a href="#">Twitter</a>
+							</li>
+							<li>
+								<span class="mark"><i class="icon-google-plus"></i></span>
+								<a href="#">Google +</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<footer>
+			<div class="container">
+				<span class="pull-left">&copy; 2012-13 Jumpstart UI</span>
+				<span class="pull-right">Theme by <a href="http://jumpstartui.com" target="_blank"> &nbsp;Jumpstart UI</a>
+				</span>
+			</div>
+		</footer>
+
+		</div>
+
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="@routes.WebJarAssets.at(WebJarAssets.locate("js/bootstrap.min.js"))"></script>
+		<script src="@routes.Assets.at("javascripts/theme.js")"></script>
 
 	</body>
 </html>

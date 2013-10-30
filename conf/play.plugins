@@ -1,5 +1,2 @@
-9994:securesocial.core.DefaultAuthenticatorStore
-9995:securesocial.core.DefaultIdGenerator
-9997:services.AuthTemplate
-9998:services.UserService
-10002:services.GoogleProvider
+10005:services.UserService
+10010:com.feth.play.module.pa.providers.oauth2.google.GoogleAuthProvider

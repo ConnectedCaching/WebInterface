@@ -1,32 +1,24 @@
 package services
 
-import play.api.{Logger, Application}
-import securesocial.core._
-import securesocial.core.providers.Token
+import com.feth.play.module.pa.service.UserServicePlugin
+import com.feth.play.module.pa.user.{AuthUserIdentity, AuthUser}
+import models.User
 
+class UserService(app: play.Application) extends UserServicePlugin(app) {
 
-class UserService(application: Application) extends UserServicePlugin(application) {
+	private var users = Map[String, AuthUser]()
 
-	private var users = Map[String, Identity]()
-
-	def find(id: UserIdFromProvider): Option[Identity] = {
-		if ( Logger.isDebugEnabled ) {
-			Logger.debug("users = %s".format(users))
-		}
-		users.get(id.providerId + id.authId)
+	def save(authUser: AuthUser): AnyRef = {
+		users = users + ((authUser.getProvider + "/" + authUser.getId) -> authUser)
+		authUser
 	}
 
-	def save(user: Identity): Identity = {
-		users = users + (user.userIdFromProvider.providerId + user.userIdFromProvider.authId -> user)
-		user
+	def getLocalIdentity(identity: AuthUserIdentity): User = {
+		User.findByAuthUserIdentity(identity)
 	}
 
-	/* only required for UsernamePasswordProvider */
-	def findByEmailAndProvider(email: String, providerId: String): Option[Identity] = { None }
-	def save(token: Token) {}
-	def findToken(token: String): Option[Token] = { None }
-	def deleteToken(uuid: String) {}
-	def deleteTokens() {}
-	def deleteExpiredTokens() {}
+	def merge(newUser: AuthUser, oldUser: AuthUser): AuthUser = ???
+
+	def link(oldUser: AuthUser, newUser: AuthUser): AuthUser = ???
 
 }

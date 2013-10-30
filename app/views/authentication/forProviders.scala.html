@@ -1,0 +1,14 @@
+@(skipCurrent: Boolean = false, showInternal: Boolean = false, showExternal: Boolean = true)(body: com.feth.play.module.pa.providers.AuthProvider => Html)
+
+
+@import com.feth.play.module.pa.user.AuthUser
+@import com.feth.play.module.pa.PlayAuthenticate
+@import com.feth.play.module.pa.providers.AuthProvider.Registry
+
+@defining(Registry.getProviders()) { providers =>
+	@if(providers != null && providers.size() > 0) {
+		@for(p <- providers) {
+			@body(p)
+		}
+	}
+}
