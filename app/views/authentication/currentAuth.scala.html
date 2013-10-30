@@ -1,0 +1,7 @@
+@()(body: com.feth.play.module.pa.user.AuthUser => Html)(implicit request: RequestHeader)
+
+@import com.feth.play.module.pa.PlayAuthenticate
+
+@defining(PlayAuthenticate.getUser(request.session.asInstanceOf[play.mvc.Http.Session])) { auth =>
+	@body(auth)
+}
