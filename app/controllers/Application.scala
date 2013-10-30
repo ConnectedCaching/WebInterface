@@ -18,7 +18,7 @@ object Application extends Controller with Authentication  {
 	}
 
 	def oAuthDenied(provider: String) = Action {
-		Redirect(routes.Application.index).flashing(
+		Redirect(routes.Application.signin).flashing(
 			"error" -> "You need to accept the OAuth connection in order to use this website!"
 		)
 	}

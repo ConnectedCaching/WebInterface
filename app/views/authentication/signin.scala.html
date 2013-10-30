@@ -18,12 +18,6 @@
 							<h4>Log in to your account</h4>
 						</div>
 
-						@request.flash.get("success").map { msg =>
-							<div class="alert alert-info">
-								@msg
-							</div>
-						}
-
 						@request.flash.get("error").map { msg =>
 							<div class="alert alert-danger">
 								@msg

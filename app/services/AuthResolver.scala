@@ -2,6 +2,7 @@ package services
 
 import com.feth.play.module.pa.PlayAuthenticate.Resolver
 import play.mvc.Call
+import com.feth.play.module.pa.exceptions.{AccessDeniedException, AuthException}
 
 class AuthResolver extends Resolver {
 
@@ -9,26 +10,33 @@ class AuthResolver extends Resolver {
 		controllers.routes.Application.signin
 	}
 
-	def afterAuth(): Call = {
+	override def afterAuth(): Call = {
 		// The user will be redirected to this page after authentication
 		// if no original URL was saved
 		controllers.routes.Application.index
 	}
 
-	def auth(provider: String): Call = {
+	override def auth(provider: String): Call = {
 		com.feth.play.module.pa.controllers.routes.Authenticate.authenticate(provider);
 	}
 
-	def askMerge(): Call = {
+	override def askMerge(): Call = {
 		null
 	}
 
-	def askLink(): Call = {
+	override def askLink(): Call = {
 		null
 	}
 
-	def afterLogout(): Call = {
+	override def afterLogout(): Call = {
 		controllers.routes.Application.index
+	}
+
+	override def onException(e: AuthException): Call = {
+		if (e.isInstanceOf[AccessDeniedException]) {
+			return controllers.routes.Application.oAuthDenied(e.asInstanceOf[AccessDeniedException].getProviderKey)
+		}
+		return super.onException(e)
 	}
 
 }

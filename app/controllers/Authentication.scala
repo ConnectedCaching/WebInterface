@@ -4,10 +4,10 @@ import play.api.mvc.{Result, Action, Session, Request, RequestHeader, AnyContent
 
 import com.feth.play.module.pa.PlayAuthenticate.{getProvider}
 import com.feth.play.module.pa.user.AuthUser
-import com.feth.play.module.pa.PlayAuthenticate
 import models.User
 
 trait Authentication {
+
 	val ORIGINAL_URL = "pa.url.orig"
 	val USER_KEY = "pa.u.id"
 	val PROVIDER_KEY = "pa.p.id"
@@ -16,21 +16,24 @@ trait Authentication {
 
 	val NO_EXPIRATION = -1L
 
-	def getUser(implicit session: Session): Option[AuthUser] =
+	private[this] def getUser(implicit session: Session): Option[AuthUser] = {
 		for {
 			provider <- session.get(PROVIDER_KEY)
 			id <- session.get(USER_KEY)
 		} yield getProvider(provider).getSessionAuthUser(id, getExpiration)
+	}
 
-	def getExpiration(implicit session: Session): Long =
+	private[this] def getExpiration(implicit session: Session): Long = {
 		try {
 			session.get(EXPIRES_KEY).map(_.toLong).getOrElse(NO_EXPIRATION)
 		} catch {
 			case _: NumberFormatException => NO_EXPIRATION
 		}
+	}
 
-	implicit def currentUser(implicit request: RequestHeader): Option[User] =
+	def currentUser(implicit request: RequestHeader): Option[User] = {
 		getUser(request.session).map(User.findByAuthUserIdentity(_)).filter(_ != null)
+	}
 
 	def Authenticated[A](p: BodyParser[A])(f: User => Request[A] => Result) = {
 		Action(p) { implicit request: Request[A] =>
