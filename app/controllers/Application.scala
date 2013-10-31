@@ -2,6 +2,9 @@ package controllers
 
 import play.api._
 import play.api.mvc._
+import com.feth.play.module.pa.user.AuthUser
+import com.feth.play.module.pa.PlayAuthenticate
+import auth.UserService
 
 object Application extends Controller with Authentication  {
 
@@ -21,6 +24,15 @@ object Application extends Controller with Authentication  {
 		Redirect(routes.Application.signin).flashing(
 			"error" -> "You need to accept the OAuth connection in order to use this website!"
 		)
+	}
+
+	def inviteRequired(providerId: String, userId: String) = Action { implicit request =>
+		Ok(views.html.authentication.activateInvite(providerId, userId))
+	}
+
+	def activateAccount(inviteCode: String) = Action {
+		PlayAuthenticate.getUserService.asInstanceOf[UserService].save(null, inviteCode)
+		Ok()
 	}
 
 }

@@ -8,8 +8,8 @@ case class User(id: String) {
 
 object User {
 
-	def findByAuthUserIdentity(identity: AuthUserIdentity): User = {
-		User(identity.getProvider + "/" + identity.getId)
+	def findByAuthUserIdentity(identity: AuthUserIdentity): Option[User] = {
+		Some(User(identity.getProvider + "/" + identity.getId))
 	}
 
 }

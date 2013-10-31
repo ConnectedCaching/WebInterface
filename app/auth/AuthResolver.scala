@@ -1,4 +1,4 @@
-package services
+package auth
 
 import com.feth.play.module.pa.PlayAuthenticate.Resolver
 import play.mvc.Call
@@ -33,9 +33,16 @@ class AuthResolver extends Resolver {
 	}
 
 	override def onException(e: AuthException): Call = {
+
 		if (e.isInstanceOf[AccessDeniedException]) {
 			return controllers.routes.Application.oAuthDenied(e.asInstanceOf[AccessDeniedException].getProviderKey)
 		}
+
+		if (e.isInstanceOf[InviteRequiredException]) {
+			val user = e.asInstanceOf[InviteRequiredException].user
+			return controllers.routes.Application.inviteRequired(user.getProvider, user.getId)
+		}
+
 		return super.onException(e)
 	}
 

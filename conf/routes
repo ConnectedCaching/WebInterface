@@ -1,21 +1,14 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
+GET        /                                     controllers.Application.index
+GET        /webInterface                         controllers.Application.webInterface
 
-# Home page
-GET        /                           controllers.Application.index
-GET        /webInterface               controllers.Application.webInterface
-
-# Login page
-GET        /signin                     controllers.Application.signin
-#GET        /signout                    securesocial.controllers.LoginPage.logout
-
-GET     /signout                        com.feth.play.module.pa.controllers.Authenticate.logout
-GET     /authenticate/:provider         com.feth.play.module.pa.controllers.Authenticate.authenticate(provider: String)
-GET     /authenticate/:provider/denied 	controllers.Application.oAuthDenied(provider: String)
+GET        /signin                               controllers.Application.signin
+GET        /signout                              com.feth.play.module.pa.controllers.Authenticate.logout
+GET        /inviteRequired                       controllers.Application.inviteRequired(providerId: String, userId: String)
+GET        /authenticate/:provider               com.feth.play.module.pa.controllers.Authenticate.authenticate(provider: String)
+GET        /authenticate/:provider/denied        controllers.Application.oAuthDenied(provider: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file               controllers.Assets.at(path="/public", file)
+GET        /assets/*file                         controllers.Assets.at(path="/public", file)
 
 # WebJars support
-GET        /managedAssets/*file        controllers.WebJarAssets.at(file)
+GET        /managedAssets/*file                  controllers.WebJarAssets.at(file)

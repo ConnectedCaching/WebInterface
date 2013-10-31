@@ -16,14 +16,14 @@ trait Authentication {
 
 	val NO_EXPIRATION = -1L
 
-	private[this] def getUser(implicit session: Session): Option[AuthUser] = {
+	def getUser(implicit session: Session): Option[AuthUser] = {
 		for {
 			provider <- session.get(PROVIDER_KEY)
 			id <- session.get(USER_KEY)
 		} yield getProvider(provider).getSessionAuthUser(id, getExpiration)
 	}
 
-	private[this] def getExpiration(implicit session: Session): Long = {
+	def getExpiration(implicit session: Session): Long = {
 		try {
 			session.get(EXPIRES_KEY).map(_.toLong).getOrElse(NO_EXPIRATION)
 		} catch {
@@ -32,7 +32,7 @@ trait Authentication {
 	}
 
 	def currentUser(implicit request: RequestHeader): Option[User] = {
-		getUser(request.session).map(User.findByAuthUserIdentity(_)).filter(_ != null)
+		getUser(request.session).flatMap(User.findByAuthUserIdentity(_))
 	}
 
 	def Authenticated[A](p: BodyParser[A])(f: User => Request[A] => Result) = {
