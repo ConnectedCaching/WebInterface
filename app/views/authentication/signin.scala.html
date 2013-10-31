@@ -4,6 +4,7 @@
 
 @styles = {
 	<link rel='stylesheet' href='@routes.Assets.at("stylesheets/signin.css")'>
+	<link rel='stylesheet' href='@routes.Assets.at("stylesheets/flags.css")'>
 }
 
 @main("title", None, styles = styles) {
@@ -25,9 +26,23 @@
 						}
 
 						<div class="social">
-							@forProviders() { p =>
-								<a href="@p.getUrl()">@p.getKey()</a>
-							}
+
+							<div class="btn-group">
+								<a class="btn btn-default btn-disabled" disabled>Opencaching</a>
+								<a class="btn btn-default btn-flag" href="authenticate/okapi-de"><span class="flag flag-btn flag-de"></span></a>
+								<a class="btn btn-default btn-flag" href="authenticate/okapi-de"><span class="flag flag-btn flag-es"></span></a>
+								<a class="btn btn-default btn-flag"  href="authenticate/okapi-de"><span class="flag flag-btn flag-it"></span></a>
+								<a class="btn btn-default btn-flag"><span class="flag flag-btn flag-nl"></span></a>
+								<a class="btn btn-default btn-flag"><span class="flag flag-btn flag-pl"></span></a>
+								<a class="btn btn-default btn-flag"><span class="flag flag-btn flag-gb"></span></a>
+								<a class="btn btn-default btn-flag"><span class="flag flag-btn flag-us"></span></a>
+							</div>
+
+							<div class="division">
+								<hr class="left">
+								<span>or</span>
+								<hr class="right">
+							</div>
 
 							<a class="face_login" href="#">
 								<span class="face_icon">
@@ -35,9 +50,7 @@
 								</span>
 								<span class="text">Sign in with Facebook</span>
 							</a>
-							<div class="division">
-								<hr>
-							</div>
+
 						</div>
 					</div>
 				</div>
