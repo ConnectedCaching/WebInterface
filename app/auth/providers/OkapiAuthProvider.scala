@@ -3,6 +3,9 @@ package auth.providers
 import com.feth.play.module.pa.providers.oauth1.{BasicOAuth1AuthUser, OAuth1AuthInfo, OAuth1AuthProvider}
 import play.api.libs.oauth.{OAuthCalculator, RequestToken}
 import com.fasterxml.jackson.databind.JsonNode
+import play.mvc.Http.Request
+import com.feth.play.module.pa.controllers.Authenticate
+import com.feth.play.module.pa.exceptions.{AuthException, AccessDeniedException}
 
 class OkapiAuthUser(id: String, info: OAuth1AuthInfo, state: String) extends BasicOAuth1AuthUser(id, info, state) {
 
@@ -29,7 +32,7 @@ class OkapiAuthProvider(app: play.Application) extends OAuth1AuthProvider[OkapiA
 
 	def buildInfo(token: RequestToken): OkapiAuthInfo = new OkapiAuthInfo(token.token, token.secret)
 
-	/**
+	/*
 	 * This allows custom implementations to enrich an AuthUser object or
 	 * provide their own implementation
 	 */
@@ -41,5 +44,19 @@ class OkapiAuthProvider(app: play.Application) extends OAuth1AuthProvider[OkapiA
 		return OkapiAuthUser.from(userJson, info)
 	}
 
+	/*
+	 * OKAPI uses different query parameter key for indicating errors during authentication ("error"
+	 * instead of the default "oauth_problem" defined by my superclass
+	 */
+	override def checkError(request: Request): Unit = {
+		val error: String = Authenticate.getQueryString(request, "error");
+		if (error != null) {
+			if (error.equals("access_denied")) {
+				throw new AccessDeniedException(getKey());
+			} else {
+				throw new AuthException(error);
+			}
+		}
+	}
 
 }
