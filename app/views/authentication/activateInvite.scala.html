@@ -27,19 +27,19 @@
 						<div class="social">
 							Since Connected Caching is still in private beta,
 							only invited people can create new accounts.<br /><br />
-							<form role="form">
+							<form role="form" action="/inviteRequired" method="POST">
 							<input type="hidden" name="providerId" value="@providerId" />
-							<input type="hidden" name="userId" value="@userId" />
+							<input type="hidden" name="authUserId" value="@(providerId + "/" + userId)" />
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Enter Invite Code here">
+										<input type="text" name="inviteCode" class="form-control" placeholder="Enter Invite Code here">
 										<span class="input-group-btn">
-											<button class="btn btn-default btn-success" type="button">Activate!</button>
+											<button class="btn btn-default btn-success" type="submit">Activate!</button>
 										</span>
-									</div><!-- /input-group -->
-								</div><!-- /.col-lg-6 -->
-							</div><!-- /.row -->
+									</div>
+								</div>
+							</div>
 							</form>
 
 							<hr>

@@ -4,6 +4,7 @@ GET        /webInterface                         controllers.Application.webInte
 GET        /signin                               controllers.Application.signin
 GET        /signout                              com.feth.play.module.pa.controllers.Authenticate.logout
 GET        /inviteRequired                       controllers.Application.inviteRequired(providerId: String, userId: String)
+POST       /inviteRequired						 controllers.Application.redeemInvite
 GET        /authenticate/:provider               com.feth.play.module.pa.controllers.Authenticate.authenticate(provider: String)
 GET        /authenticate/:provider/denied        controllers.Application.oAuthDenied(provider: String)
 
