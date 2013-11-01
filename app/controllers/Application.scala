@@ -10,8 +10,16 @@ import play.api.cache.Cache
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.{Valid, Invalid, Constraint}
+import play.modules.reactivemongo.MongoController
+import reactivemongo.api.collections.default.BSONCollection
+import reactivemongo.bson.{BSONString, BSONDocument}
+import reactivemongo.core.commands.Count
+import scala.concurrent.duration._
+import scala.concurrent.Await
 
-object Application extends Controller with Authentication  {
+object Application extends Controller with Authentication with MongoController  {
+
+	val inviteCodes = db[BSONCollection]("invite_codes")
 
 	def index = Action { implicit request =>
 		Ok(views.html.index(currentUser))
@@ -45,9 +53,11 @@ object Application extends Controller with Authentication  {
 		})
 
 		val inviteCodeConstraint: Constraint[String] = Constraint("")({ inviteCode =>
-			// TODO validate invite code
-			//Invalid("Invalid invite code given!")
-			Valid
+			val futureCount = inviteCodes.db.command(Count("invite_codes", Some(BSONDocument("code" -> BSONString(inviteCode)))))
+			val result = futureCount.map { count =>
+				if (count < 1) Invalid("Invalid invite code given!") else Valid
+			}
+			Await.result(result, Duration.Inf)
 		})
 
 		val form = Form(

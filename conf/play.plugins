@@ -1,3 +1,4 @@
+400:play.modules.reactivemongo.ReactiveMongoPlugin
 10005:auth.UserService
 10010:auth.providers.OkapiAuthProvider
 10010:com.feth.play.module.pa.providers.oauth2.google.GoogleAuthProvider
