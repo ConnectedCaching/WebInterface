@@ -30,9 +30,9 @@ object Application extends Controller with Authentication  {
 		Ok(views.html.authentication.activateInvite(providerId, userId))
 	}
 
-	def activateAccount(inviteCode: String) = Action {
+	def activateAccount(inviteCode: String) = Action { implicit request =>
 		PlayAuthenticate.getUserService.asInstanceOf[UserService].save(null, inviteCode)
-		Ok()
+		Ok("")
 	}
 
 }

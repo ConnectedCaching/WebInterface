@@ -3,7 +3,6 @@ package auth
 import com.feth.play.module.pa.service.UserServicePlugin
 import com.feth.play.module.pa.user.{AuthUserIdentity, AuthUser}
 import models.User
-import auth.InviteRequiredException
 
 class UserService(app: play.Application) extends UserServicePlugin(app) {
 
