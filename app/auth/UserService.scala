@@ -17,14 +17,15 @@ class UserService(app: play.Application) extends UserServicePlugin(app) {
 	}
 
 	def save(user: AuthUser, inviteCode: String): AnyRef = {
+		// TODO validate invite code?
 		User.create(UserLogin(user.getProvider, user.getId, DateTime.now()))
+		// TODO invalidate invite code
 	}
 
 	// due to the shitty java based framework implementation we have to return null here to
 	// trigger the execution of the save method
-	override def getLocalIdentity(identity: AuthUserIdentity): Option[User] = {
-		User.findByAuthUserIdentity(identity)
-		return null
+	override def getLocalIdentity(identity: AuthUserIdentity): User = {
+		User.findBlocking(identity).getOrElse(null)
 	}
 
 	override def merge(newUser: AuthUser, oldUser: AuthUser): AuthUser = ???

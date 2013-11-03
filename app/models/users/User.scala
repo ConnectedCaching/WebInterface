@@ -5,9 +5,10 @@ import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoPlugin
 import play.modules.reactivemongo.json.collection.JSONCollection
 import reactivemongo.core.commands.LastError
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.Play.current
+import scala.concurrent.duration.Duration
 
 case class User(
 	logins: List[UserLogin],
@@ -21,9 +22,10 @@ object User {
 
 	def collection = ReactiveMongoPlugin.db.collection[JSONCollection]("users")
 
-	def findByAuthUserIdentity(identity: AuthUserIdentity): Option[User] = {
-		//Some(User(identity.getProvider + "/" + identity.getId))
-		None
+	def findBlocking(identity: AuthUserIdentity): Option[User] = {
+		val query = Json.obj("logins.provider" -> identity.getProvider, "logins.userId" -> identity.getId)
+		val user = collection.find(query).one[User]
+		Await.result(user, Duration.Inf)
 	}
 
 	def create(login: UserLogin): Future[LastError] = {

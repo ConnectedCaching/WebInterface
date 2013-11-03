@@ -32,7 +32,7 @@ trait Authentication {
 	}
 
 	def currentUser(implicit request: RequestHeader): Option[User] = {
-		getUser(request.session).flatMap(User.findByAuthUserIdentity(_))
+		getUser(request.session).flatMap(User.findBlocking(_))
 	}
 
 	def Authenticated[A](p: BodyParser[A])(f: User => Request[A] => Result) = {
