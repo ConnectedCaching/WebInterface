@@ -43,7 +43,7 @@ object Application extends Controller with Authentication with MongoController  
 		Ok(views.html.authentication.activateInvite(providerId, userId))
 	}
 
-	case class FormData(providerId: String, auhtUserId: String, inviteCode: String)
+	case class FormData(providerId: String, authUserId: String, inviteCode: String)
 
 	def redeemInvite = Action { implicit request =>
 
@@ -71,7 +71,8 @@ object Application extends Controller with Authentication with MongoController  
 		form.bindFromRequest.fold(
 			formWithErrors => { Redirect(routes.Application.signin).flashing("error" -> "foobar") },
 			formData => {
-				//PlayAuthenticate.getUserService.asInstanceOf[UserService].save(null, formData.inviteCode)
+				val authUser = Cache.getAs[AuthUser]("pendingInvite_" + formData.authUserId).get
+				PlayAuthenticate.getUserService.asInstanceOf[UserService].save(authUser, formData.inviteCode)
 				Redirect(com.feth.play.module.pa.controllers.routes.Authenticate.authenticate(formData.providerId))
 			}
 		)

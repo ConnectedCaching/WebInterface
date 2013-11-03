@@ -3,13 +3,12 @@ package auth
 import play.api.Play.current
 import com.feth.play.module.pa.service.UserServicePlugin
 import com.feth.play.module.pa.user.{AuthUserIdentity, AuthUser}
-import models.User
+import models.{UserLogin, User}
 import play.api.cache.Cache
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
 class UserService(app: play.Application) extends UserServicePlugin(app) {
-
-	private var users = Map[String, AuthUser]()
 
 	override def save(authUser: AuthUser): AnyRef = {
 		val key = "pendingInvite_" + authUser.getProvider + "/" + authUser.getId
@@ -18,8 +17,7 @@ class UserService(app: play.Application) extends UserServicePlugin(app) {
 	}
 
 	def save(user: AuthUser, inviteCode: String): AnyRef = {
-		users = users + ((user.getProvider + "/" + user.getId) -> user)
-		user
+		User.create(UserLogin(user.getProvider, user.getId, DateTime.now()))
 	}
 
 	// due to the shitty java based framework implementation we have to return null here to
