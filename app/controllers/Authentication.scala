@@ -4,7 +4,7 @@ import play.api.mvc.{Result, Action, Session, Request, RequestHeader, AnyContent
 
 import com.feth.play.module.pa.PlayAuthenticate.{getProvider}
 import com.feth.play.module.pa.user.AuthUser
-import models.User
+import models.users.User
 
 trait Authentication {
 

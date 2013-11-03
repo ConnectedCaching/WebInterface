@@ -1,4 +1,4 @@
-package models
+package models.users
 
 import play.api.libs.json.Json
 import play.ff.extensions.StringExtensions._

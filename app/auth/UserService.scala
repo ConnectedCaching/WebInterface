@@ -3,10 +3,10 @@ package auth
 import play.api.Play.current
 import com.feth.play.module.pa.service.UserServicePlugin
 import com.feth.play.module.pa.user.{AuthUserIdentity, AuthUser}
-import models.{UserLogin, User}
 import play.api.cache.Cache
 import scala.concurrent.duration._
 import org.joda.time.DateTime
+import models.users.{UserLogin, User}
 
 class UserService(app: play.Application) extends UserServicePlugin(app) {
 

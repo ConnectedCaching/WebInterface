@@ -1,4 +1,4 @@
-package models
+package models.users
 
 import com.feth.play.module.pa.user.AuthUserIdentity
 import play.api.libs.json.Json
@@ -11,10 +11,13 @@ import play.api.Play.current
 
 case class User(
 	logins: List[UserLogin],
-	accessKeys: List[AccessKey]
+	accessKeys: List[AccessKey],
+	collections: List[models.collections.Collection]
 )
 
 object User {
+
+	implicit val userFormat = Json.format[User]
 
 	def collection = ReactiveMongoPlugin.db.collection[JSONCollection]("users")
 
@@ -26,11 +29,10 @@ object User {
 	def create(login: UserLogin): Future[LastError] = {
 		val user = User(
 			List(login),
-			AccessKey.createInitialSet
+			AccessKey.createInitialSet,
+			models.collections.Collection.createInitialSet
 		)
 		collection.insert(user)
 	}
-
-	implicit val userFormat = Json.format[User]
 
 }

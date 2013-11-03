@@ -1,4 +1,6 @@
-@(user: Option[models.User])(implicit request: RequestHeader)
+@import models.users.User
+
+@(user: Option[User])(implicit request: RequestHeader)
 
 	@styles = {
 	<link rel='stylesheet' href='@routes.Assets.at("stylesheets/external-pages.css")'>
