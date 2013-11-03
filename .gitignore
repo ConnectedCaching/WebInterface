@@ -16,3 +16,4 @@ dist
 
 conf/auth.conf
 conf/db.conf
+conf/secret.conf
