@@ -4,6 +4,7 @@
 }
 
 #box_login{
+	text-align: center;
 }
 #box_login .box_wrapper{
 	margin-left: 0;
@@ -67,12 +68,24 @@
 	top: 13px;
 }
 #box_login .box .division hr.right{
-	bottom: 6px;
+	top: 13px;
     right: 0;
 }
 #box_login .box .division span{
 	color: #666666;
 	font-size: 18px;
+}
+
+.signin-google {
+	display: block;
+	margin: 0 auto;
+	width: 216px;
+	height: 42px;
+	background: url(../images/signin_g_base.png) no-repeat center;
+}
+
+.signin-google:hover {
+	background: url(../images/signin_g_hover.png) no-repeat center;
 }
 
 /* Portrait tablet to landscape and desktop */
