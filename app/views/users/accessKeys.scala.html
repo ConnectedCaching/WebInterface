@@ -1,0 +1,13 @@
+@(user: models.users.User)(implicit request: RequestHeader)
+
+@main("My Access Keys", Some(user)) {
+
+	<div class="container">
+		<ul>
+		@user.accessKeys.map { ak =>
+			<li>@ak.name - @ak.keyId - @ak.key</li>
+		}
+		</ul>
+	</div>
+
+}
