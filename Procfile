@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/ConnectedCaching -Dhttp.port=${PORT} ${JAVA_OPTS}
+web: target/universal/stage/bin/connectedcaching -Dhttp.port=$PORT
