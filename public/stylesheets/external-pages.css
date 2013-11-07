@@ -59,7 +59,7 @@
 /* Coming Soon
 -------------------------------------------------- */
 #comingsoon {
-	margin-top: 130px;
+	padding-top: 130px;
 }
 #comingsoon .countdown {
 	padding-bottom: 120px;
@@ -100,12 +100,13 @@
 	font-size: 40px;
 	font-weight: bold;
 	position: absolute;
-	top: 33px;
+	top: 16px;
 	display: block;
 	width: 100%;
 	text-align: center;
 }
 #comingsoon .countdown .figure label {
+	display: block;
 	color: #7A7D80;
 	font-weight: bold;
 	font-size: 12px;
@@ -114,16 +115,6 @@
 }
 #comingsoon .subscribe {
 	margin-bottom: 80px;
-}
-#comingsoon .subscribe form {
-	text-align: center;
-	margin-top: 40px;
-}
-#comingsoon .subscribe form button {
-	position: relative;
-	top: -5px;
-	margin-left: 10px;
-	font-weight: bold;	
 }
 #comingsoon .subscribe .follow {
 	text-align: center;
@@ -144,9 +135,6 @@
 	position: relative;
 	top: 7px;
 	margin: 0px 2px;
-}
-#footer.coming-soon {
-	min-height: 60px;
 }
 
 /* Contact Us

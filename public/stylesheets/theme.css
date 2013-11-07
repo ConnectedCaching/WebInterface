@@ -38,9 +38,9 @@ h1, h2, h3, h4, h5, h6 {
 	height: auto !important;
 	height: 100%;
 	/* Negative indent footer by its height */
-	margin: 0 auto -253px;
+	margin: 0 auto -53px;
 	/* Pad bottom by footer height */
-	padding: 0 0 253px;
+	padding: 0 0 53px;
 }
 
 /* Set the fixed height of the footer here */

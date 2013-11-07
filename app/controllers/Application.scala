@@ -13,7 +13,7 @@ import models.users.InviteCode
 object Application extends Controller with Authentication with MongoController  {
 
 	def index = Action { implicit request =>
-		Ok(views.html.index(currentUser))
+		Ok(views.html.soon(currentUser))
 	}
 
 	def signin = Action { implicit request =>

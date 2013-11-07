@@ -1,0 +1,68 @@
+@(user: Option[models.users.User])(implicit request: RequestHeader)
+
+	@styles = {
+	<link rel='stylesheet' href='@routes.Assets.at("stylesheets/external-pages.css")'>
+}
+
+@main("title", user, styles = styles) {
+
+	<div id="comingsoon" class="comingsoon_page">
+		<div class="container">
+			<div class="countdown">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-1 left">
+						<h1>We are launching eventually...</h1>
+						<p>
+							There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.
+						</p>
+					</div>
+					<div class="col-md-5 right">
+						<div class="figure">
+							<div class="square">
+								<span>?</span>
+							</div>
+							<label>DAYS</label>
+						</div>
+						<div class="figure">
+							<div class="square">
+								<span>?</span>
+							</div>
+							<label>HOURS</label>
+						</div>
+						<div class="figure">
+							<div class="square">
+								<span>?</span>
+							</div>
+							<label>MINUTES</label>
+						</div>
+						<div class="figure">
+							<div class="square">
+								<span>?</span>
+							</div>
+							<label>SECONDS</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="subscribe">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="follow">
+							<strong>Follow us</strong>
+							<a href="#">
+								<i class="social tw"></i>
+							</a>
+							<a href="#">
+								<i class="social fb"></i>
+							</a>
+							<a href="#">
+								<i class="social gp"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+}
