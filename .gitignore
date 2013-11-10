@@ -13,7 +13,3 @@ dist
 /.project
 /RUNNING_PID
 /.settings
-
-conf/auth.conf
-conf/db.conf
-conf/secret.conf
