@@ -9,8 +9,11 @@ import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.Play.current
 import scala.concurrent.duration.Duration
+import reactivemongo.bson.BSONObjectID
+import play.modules.reactivemongo.json.BSONFormats._
 
 case class User(
+	_id: Option[BSONObjectID],
 	logins: List[UserLogin],
 	accessKeys: List[AccessKey],
 	collections: List[models.collections.Collection]
@@ -30,6 +33,7 @@ object User {
 
 	def create(login: UserLogin): Future[LastError] = {
 		val user = User(
+			None,
 			List(login),
 			AccessKey.createInitialSet,
 			models.collections.Collection.createInitialSet

@@ -3,9 +3,10 @@
 @main("My Access Keys", Some(user)) {
 
 	<div class="container">
+		User ID: @user._id.map(_.stringify)
 		<ul>
 		@user.accessKeys.map { ak =>
-			<li>@ak.name - @ak.keyId - @ak.key</li>
+			<li>@ak.name - Key ID: @ak.keyId - Secret: @ak.key</li>
 		}
 		</ul>
 	</div>
