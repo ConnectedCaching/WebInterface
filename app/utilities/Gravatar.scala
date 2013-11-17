@@ -2,6 +2,7 @@ package utilities
 
 import play.api.libs.Codecs
 import java.security.MessageDigest
+import models.users.User
 
 object Gravatar {
 
@@ -18,6 +19,10 @@ object Gravatar {
 	def urlFor(email: String, size: Int): String = {
 		val hash = hashFor(email)
 		s"https://secure.gravatar.com/avatar/$hash?s=$size&d=identicon"
+	}
+
+	def urlFor(user: User, size: Int): String = {
+		urlFor(user.email.getOrElse(s"${user._id.get.stringify}@connectedcaching.net"), size)
 	}
 
 }

@@ -1,10 +1,9 @@
 package auth.providers
 
 import com.feth.play.module.pa.providers.oauth2.OAuth2AuthProvider
-import com.feth.play.module.pa.providers.oauth2.google.{GoogleAuthUser, GoogleAuthInfo}
+import com.feth.play.module.pa.providers.oauth2.google.{GoogleAuthInfo}
 import auth.CcAuthUser
 import java.lang.String
-import com.feth.play.module.pa.PlayAuthenticate
 import com.feth.play.module.pa.exceptions.{AccessTokenException, AuthException}
 import play.Logger
 import play.api.libs.ws.WS
