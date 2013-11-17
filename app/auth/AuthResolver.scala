@@ -17,7 +17,7 @@ class AuthResolver extends Resolver {
 	}
 
 	override def auth(provider: String): Call = {
-		com.feth.play.module.pa.controllers.routes.Authenticate.authenticate(provider);
+		com.feth.play.module.pa.controllers.routes.Authenticate.authenticate(provider)
 	}
 
 	override def askMerge(): Call = {

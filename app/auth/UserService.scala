@@ -18,7 +18,12 @@ class UserService(app: play.Application) extends UserServicePlugin(app) {
 
 	def save(user: AuthUser, inviteCode: String): AnyRef = {
 		// TODO validate invite code?
-		User.create(UserLogin(user.getProvider, user.getId, DateTime.now()))
+		val u = user.asInstanceOf[CcAuthUser]
+		User.create(
+			u.displayName,
+			u.email,
+			UserLogin(u.getProvider, u.getId, DateTime.now())
+		)
 		// TODO invalidate invite code
 	}
 

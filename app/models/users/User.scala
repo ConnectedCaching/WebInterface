@@ -14,6 +14,8 @@ import play.modules.reactivemongo.json.BSONFormats._
 
 case class User(
 	_id: Option[BSONObjectID],
+	displayName: Option[String],
+	email: Option[String],
 	logins: List[UserLogin],
 	accessKeys: List[AccessKey],
 	collections: List[models.collections.Collection]
@@ -31,9 +33,11 @@ object User {
 		Await.result(user, Duration.Inf)
 	}
 
-	def create(login: UserLogin): Future[LastError] = {
+	def create(displayName: Option[String], email: Option[String], login: UserLogin): Future[LastError] = {
 		val user = User(
 			None,
+			displayName,
+			email,
 			List(login),
 			AccessKey.createInitialSet,
 			models.collections.Collection.createInitialSet
