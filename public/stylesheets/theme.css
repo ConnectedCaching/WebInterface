@@ -135,6 +135,12 @@ input[type="color"]:focus,
 
 /* Navbar
 -------------------------------------------------- */
+.avatar {
+	vertical-align: middle;
+	border-radius: 3px;
+	margin-right: 5px;
+}
+
 .navbar-fixed-top {
     margin-bottom: 0;
 }
